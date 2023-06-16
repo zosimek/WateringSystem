@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">WateringSystem</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="connected">Connected</string>
+    <string name="lostConnection">Connection Lost</string>
+    <string name="plantListViewName">Your Plants</string>
+    <string name="plantName1">name1</string>
+    <string name="plantName2">name2</string>
+    <string name="plantName3">name3</string>
+    <string name="plantName4">name4</string>
+    <string name="title_activity_userlist">UserlistActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>
