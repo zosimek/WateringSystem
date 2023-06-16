@@ -23,7 +23,7 @@ class PlantAdapter(private val plantList : ArrayList<Plant>) : RecyclerView.Adap
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.plane_list_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.plant_list_item, parent, false)
         return PlantViewHolder(itemView, mListener)
     }
 

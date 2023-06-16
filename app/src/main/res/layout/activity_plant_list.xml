@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5EBA46">
+    android:background="@color/theme_green">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutConnection"
@@ -45,15 +45,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/plantList"
-        android:layout_width="379dp"
-        android:layout_height="639dp"
-        android:background="#5EBA46"
+        android:layout_width="382dp"
+        android:layout_height="708dp"
+        android:background="@color/theme_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txttitle"
         app:layout_constraintVertical_bias="0.538"
-        tools:listitem="@layout/plane_list_item" />
+        tools:listitem="@layout/plant_list_item" />
 
     <TextView
         android:id="@+id/txttitle"

@@ -1,5 +1,6 @@
 package com.example.dbtry
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -50,7 +51,8 @@ class PlantActivity: AppCompatActivity() {
                     plantListLoadingIcon.visibility = View.GONE
                     adapter.setOnItemClickListener(object : PlantAdapter.onItemClickListener{
                         override fun onItemClick(position: Int) {
-                            Toast.makeText(this@PlantActivity, "Plant no. ${position+1}", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(this@PlantActivity, "Plant no. ${position+1}", Toast.LENGTH_SHORT).show()
+                            singlePlantActivity(position)
                         }
                     })
                 }
@@ -62,29 +64,15 @@ class PlantActivity: AppCompatActivity() {
 
         })
 
+    }
 
+    fun singlePlantActivity(position: Int){
 
-//        val textView1 : TextView = findViewById(R.id.txttitle) as TextView
-//
-//        var database = FirebaseDatabase.getInstance().getReference("Users")
-//        var getdata = object : ValueEventListener {
-//
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                var sb = StringBuilder()
-//                for(i in snapshot.children) {
-//                        var name = i.child("firstName").getValue()
-//                        sb.append("$name")
-//                }
-//                textView1.setText(sb)
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
-//            }
-//        }
-//        database.addValueEventListener(getdata)
-//        database.addListenerForSingleValueEvent(getdata)
+        val plantNumber = (position + 1).toString()
 
-
+        val intent = Intent(this@PlantActivity, SinglePlantActivity::class.java).also {
+            it.putExtra("PLANT_NUMBER", plantNumber)
+        }
+        startActivity(intent)
     }
 }

@@ -24,6 +24,10 @@
             android:name=".PlantActivity"
             android:exported="true" >
         </activity>
+        <activity
+            android:name=".SinglePlantActivity"
+            android:exported="true" >
+        </activity>
     </application>
 
 </manifest>
