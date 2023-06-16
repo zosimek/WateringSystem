@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,9 +44,15 @@ class PlantActivity: AppCompatActivity() {
                         plantArrayList.add(plant!!)
                     }
 
-                    plantRecyclerView.adapter = PlantAdapter(plantArrayList)
-                    plantListLoadingIcon.visibility = View.GONE
+                    var adapter = PlantAdapter(plantArrayList)
 
+                    plantRecyclerView.adapter = adapter
+                    plantListLoadingIcon.visibility = View.GONE
+                    adapter.setOnItemClickListener(object : PlantAdapter.onItemClickListener{
+                        override fun onItemClick(position: Int) {
+                            Toast.makeText(this@PlantActivity, "Plant no. ${position+1}", Toast.LENGTH_SHORT).show()
+                        }
+                    })
                 }
             }
 
