@@ -1,12 +1,15 @@
 package com.example.dbtry
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlin.concurrent.fixedRateTimer
 
 class SinglePlantActivity : AppCompatActivity() {
 
@@ -15,11 +18,13 @@ class SinglePlantActivity : AppCompatActivity() {
     private lateinit var moistureLevel: ProgressBar
     private lateinit var moistureText: TextView
 
+    private lateinit var plantNumber: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plant_main)
 
-        val plantNumber = intent.getStringExtra("PLANT_NUMBER")
+        plantNumber = intent.getStringExtra("PLANT_NUMBER").toString()
 
         plantName = findViewById<TextView>(R.id.txtPlantName)
         moistureText = findViewById<TextView>(R.id.txtMoisture)
@@ -27,7 +32,14 @@ class SinglePlantActivity : AppCompatActivity() {
 
         readData(plantNumber.toString())
 
+        fixedRateTimer("timer", false,0L, 1000){
+            this@SinglePlantActivity.runOnUiThread {
+                readMoistureLevel(plantNumber.toString())
+            }
+        }
     }
+
+
 
     private fun readData(plantNumber: String) {
 
@@ -51,6 +63,11 @@ class SinglePlantActivity : AppCompatActivity() {
         }.addOnFailureListener {
             Toast.makeText(this, "Wrong data", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun readMoistureLevel(plantNumber: String){
+
+        db = FirebaseDatabase.getInstance().getReference("10032311")
 
         var sensorRecord = "plant" + plantNumber + "/sensor"
         db.child(sensorRecord).get().addOnSuccessListener {
@@ -64,6 +81,5 @@ class SinglePlantActivity : AppCompatActivity() {
                 moistureLevel.progress = Integer.parseInt(currentMoistureLevel.toString())
             }
         }
-
     }
 }
