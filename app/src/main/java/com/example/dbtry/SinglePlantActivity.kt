@@ -1,8 +1,10 @@
 package com.example.dbtry
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -18,17 +20,43 @@ class SinglePlantActivity : AppCompatActivity() {
     private lateinit var moistureLevel: ProgressBar
     private lateinit var moistureText: TextView
 
-    private lateinit var plantNumber: String
+    private lateinit var btnWateringSettings: Button
+    private lateinit var btnWateringHistory: Button
+    private lateinit var btnMoistureHistory: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plant_main)
 
-        plantNumber = intent.getStringExtra("PLANT_NUMBER").toString()
+        var plantNumber = intent.getStringExtra("PLANT_NUMBER")?.toLongOrNull()
 
         plantName = findViewById<TextView>(R.id.txtPlantName)
         moistureText = findViewById<TextView>(R.id.txtMoisture)
         moistureLevel = findViewById<ProgressBar>(R.id.progressMoisture)
+
+
+
+        btnWateringSettings = findViewById<Button>(R.id.btnWateringSettings)
+        btnWateringSettings.setOnClickListener {
+            val intent = Intent(this@SinglePlantActivity, WateringSettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        btnWateringHistory = findViewById<Button>(R.id.btnWateringHistory)
+        btnWateringHistory.setOnClickListener {
+            val intent = Intent(this@SinglePlantActivity, WateringHistoryActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        btnMoistureHistory = findViewById<Button>(R.id.btnMoistureHistory)
+        btnMoistureHistory.setOnClickListener {
+            val intent = Intent(this@SinglePlantActivity, MoistureHistoryActivity::class.java)
+            startActivity(intent)
+        }
+
 
         readData(plantNumber.toString())
 
@@ -56,12 +84,12 @@ class SinglePlantActivity : AppCompatActivity() {
 
             } else {
 
-                Toast.makeText(this, "Wrong data", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Wrong data", Toast.LENGTH_SHORT).show()
 
             }
 
         }.addOnFailureListener {
-            Toast.makeText(this, "Wrong data", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Wrong data", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -76,7 +104,7 @@ class SinglePlantActivity : AppCompatActivity() {
 
                 val currentMoistureLevel = it.child("currentMoistureLevel").value
 
-                Toast.makeText(this, "${currentMoistureLevel}, ${currentMoistureLevel?.javaClass}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "${currentMoistureLevel}, ${currentMoistureLevel?.javaClass}", Toast.LENGTH_SHORT).show()
                 moistureText.text = currentMoistureLevel.toString()
                 moistureLevel.progress = Integer.parseInt(currentMoistureLevel.toString())
             }

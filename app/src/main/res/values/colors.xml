@@ -14,4 +14,6 @@
     <color name="light_gray_circle">#dddddd</color>
     <color name="semi_wet">#B11C1C</color>
     <color name="dry">#DA9929</color>
+    <color name="pink_light">#ba47a2</color>
+    <color name="pink_dark">#6E145A</color>
 </resources>

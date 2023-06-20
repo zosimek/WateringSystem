@@ -22,6 +22,26 @@
     <string name="moisture_history">MOISTURE HISTORY</string>
     <string name="moisture_level">MOISTURE LEVEL</string>
 
+    <!--    String for Watering Settings-->
+    <string name="watering_settings">Watering Settings</string>
+    <string name="watering_interval">watering interval</string>
+    <string name="save_changes">SAVE CHANGES</string>
+    <string name="water_the_plant">WATER THE PLANT</string>
+
+    <string name="plant_name">Plant name</string>
+    <string name="watering_mode">Watering mode</string>
+    <string name="max">Max.</string>
+    <string name="min">Min.</string>
+    <string name="water_amount">Water amount:</string>
+    <string name="moisture_threshold">Moisture threshold:</string>
+
+    <!--    Strings for the spinner in WateringSettings-->
+    <string-array name="watering_mode">
+        <item>manual</item>
+        <item>timer</item>
+        <item>auto</item>
+    </string-array>
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

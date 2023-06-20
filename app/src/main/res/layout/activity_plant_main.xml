@@ -90,6 +90,15 @@
                 android:layout_marginTop="0dp"
                 android:background="@xml/plant_btn_options">
 
+                <Button
+                    android:id="@+id/btnWateringSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -130,6 +139,15 @@
                 android:layout_marginTop="0dp"
                 android:background="@xml/plant_btn_options">
 
+                <Button
+                    android:id="@+id/btnWateringHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -170,6 +188,16 @@
                 android:layout_marginTop="0dp"
                 android:background="@xml/plant_btn_options">
 
+                <Button
+                    android:id="@+id/btnMoistureHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.512"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -214,7 +242,9 @@
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@+id/progressMoisture"
         app:layout_constraintEnd_toEndOf="@+id/progressMoisture"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="@+id/progressMoisture"
-        app:layout_constraintTop_toTopOf="@+id/progressMoisture" />
+        app:layout_constraintTop_toTopOf="@+id/progressMoisture"
+        app:layout_constraintVertical_bias="0.502" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

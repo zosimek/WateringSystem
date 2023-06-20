@@ -28,6 +28,18 @@
             android:name=".SinglePlantActivity"
             android:exported="true" >
         </activity>
+        <activity
+            android:name=".WateringSettingsActivity"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".WateringHistoryActivity"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".MoistureHistoryActivity"
+            android:exported="true" >
+        </activity>
     </application>
 
 </manifest>
