@@ -28,10 +28,10 @@
     <string name="save_changes">SAVE CHANGES</string>
     <string name="water_the_plant">WATER THE PLANT</string>
 
-    <string name="plant_name">Plant name</string>
-    <string name="watering_mode">Watering mode</string>
-    <string name="max">Max.</string>
-    <string name="min">Min.</string>
+    <string name="plant_name">Plant \nname:</string>
+    <string name="watering_mode">Watering mode:</string>
+    <string name="max">Max.:</string>
+    <string name="min">Min.:</string>
     <string name="water_amount">Water amount:</string>
     <string name="moisture_threshold">Moisture threshold:</string>
 

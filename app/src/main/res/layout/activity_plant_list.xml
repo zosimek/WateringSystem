@@ -52,14 +52,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txttitle"
-        app:layout_constraintVertical_bias="0.538"
+        app:layout_constraintVertical_bias="0.26999998"
         tools:listitem="@layout/plant_list_item" />
 
     <TextView
         android:id="@+id/txttitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/calistoga"
         android:text="@string/plantListViewName"
         android:textColor="@color/white"
         android:textSize="48sp"

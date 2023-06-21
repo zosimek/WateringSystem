@@ -10,8 +10,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:fontFamily="sans-serif-black"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/calistoga"
         android:text="@string/watering_settings"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -25,17 +25,18 @@
         android:id="@+id/btnCommitSettings"
         android:layout_width="280dp"
         android:layout_height="73dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/button_rounded"
-        android:fontFamily="sans-serif-black"
-        android:foregroundTint="@color/pink_dark"
+        android:foregroundTint="@color/theme_green"
         android:text="@string/save_changes"
         android:textColor="#444444"
         android:textSize="20sp"
+        android:fontFamily="@font/calistoga"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+        app:layout_constraintTop_toBottomOf="@+id/layoutIntervalMax"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -43,10 +44,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:fontFamily="sans-serif-black"
         android:text="@string/watering_interval"
         android:textColor="@color/white"
         android:textSize="25dp"
+        android:fontFamily="@font/calistoga"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,11 +55,12 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="300dp"
+        android:layout_width="370dp"
         android:layout_height="78dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
@@ -67,33 +69,46 @@
 
         <TextView
             android:id="@+id/zfbzdfb"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-black"
             android:text="@string/plant_name"
             android:textSize="18sp"
+            android:fontFamily="@font/calistoga"
             tools:layout_editor_absoluteX="56dp"
             tools:layout_editor_absoluteY="158dp" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtPlantName"
-            android:layout_width="189dp"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
+            android:background="@drawable/rounded_textview"
             android:hint="name"
+            android:textSize="18sp"
+            android:paddingLeft="20dp"
             tools:layout_editor_absoluteX="166dp"
             tools:layout_editor_absoluteY="148dp" />
+
+        <TextView
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:paddingLeft="10dp"
+            android:text=""
+            android:textSize="22sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="300dp"
+        android:layout_width="370dp"
         android:layout_height="78dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,33 +116,46 @@
 
         <TextView
             android:id="@+id/textView9"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-black"
             android:text="@string/water_amount"
             android:textSize="18sp"
+            android:fontFamily="@font/calistoga"
             tools:layout_editor_absoluteX="56dp"
             tools:layout_editor_absoluteY="422dp" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtWaterAmount"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_textview"
+            android:paddingLeft="20dp"
             android:layout_weight="1"
-            android:hint="hint"
+            android:hint="in [ml]"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="166dp"
             tools:layout_editor_absoluteY="412dp" />
+
+        <TextView
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:paddingLeft="10dp"
+            android:text="ml"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="300dp"
+        android:layout_width="370dp"
         android:layout_height="78dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
@@ -135,12 +163,12 @@
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-black"
             android:text="@string/watering_mode"
             android:textSize="18sp"
+            android:fontFamily="@font/calistoga"
             tools:layout_editor_absoluteX="56dp"
             tools:layout_editor_absoluteY="246dp" />
 
@@ -148,17 +176,34 @@
             android:id="@+id/spinnerMode"
             android:layout_width="200dp"
             android:layout_height="45dp"
-            android:layout_weight="1" />
+            android:background="@drawable/rounded_textview"
+            android:paddingLeft="20dp"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            style="@style/WateringSettingsMode"
+            android:dropDownWidth="match_parent"
+            android:duplicateParentState="true" >
+        </Spinner>
+
+        <TextView
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:paddingLeft="10dp"
+            android:text=""
+            android:textSize="22sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="300dp"
+        android:layout_width="370dp"
         android:layout_height="78dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.451"
@@ -166,34 +211,47 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
         <TextView
-            android:id="@+id/txtIntervalMin"
-            android:layout_width="120dp"
+            android:id="@+id/lblIntervalMin"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-black"
             android:text="@string/min"
             android:textSize="18sp"
+            android:fontFamily="@font/calistoga"
             tools:layout_editor_absoluteX="55dp"
             tools:layout_editor_absoluteY="594dp" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtMinInterval"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:hint="hint"
+            android:background="@drawable/rounded_textview"
+            android:hint="min days apart"
+            android:paddingLeft="20dp"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="165dp"
             tools:layout_editor_absoluteY="584dp" />
+
+        <TextView
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:paddingLeft="10dp"
+            android:text="days"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="300dp"
+        android:layout_width="370dp"
         android:layout_height="78dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="40dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
@@ -201,10 +259,10 @@
 
         <TextView
             android:id="@+id/textView8"
-            android:layout_width="120dp"
+            android:layout_width="95dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/calistoga"
             android:text="@string/moisture_threshold"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="56dp"
@@ -213,44 +271,69 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtThreshold"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_textview"
+            android:paddingLeft="20dp"
             android:layout_weight="1"
-            android:hint="hint"
+            android:hint="in [%]"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="166dp"
             tools:layout_editor_absoluteY="324dp" />
+
+        <TextView
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:paddingLeft="10dp"
+            android:text="%"
+            android:textSize="22sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutIntervalMax"
-        android:layout_width="300dp"
+        android:layout_width="370dp"
         android:layout_height="78dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="40dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.451"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
         <TextView
-            android:id="@+id/txtIntervalMax"
-            android:layout_width="120dp"
+            android:id="@+id/lblIntervalMax"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-black"
             android:text="@string/max"
             android:textSize="18sp"
+            android:fontFamily="@font/calistoga"
             tools:layout_editor_absoluteX="55dp"
             tools:layout_editor_absoluteY="682dp" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtMaxInterval"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_textview"
+            android:paddingLeft="20dp"
             android:layout_weight="1"
-            android:hint="hint"
+            android:hint="max days apart"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="165dp"
             tools:layout_editor_absoluteY="672dp" />
+
+        <TextView
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:paddingLeft="10dp"
+            android:text="days"
+            android:textSize="18sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
