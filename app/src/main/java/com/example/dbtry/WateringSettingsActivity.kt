@@ -1,6 +1,9 @@
 package com.example.dbtry
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -39,6 +42,56 @@ class WateringSettingsActivity : AppCompatActivity() {
         inputTxtIntervalMax = findViewById<TextInputEditText>(R.id.txtMaxInterval)
         btnSubmit = findViewById<Button>(R.id.btnCommitSettings)
 
+        val defaultTextColor = inputTxtPlantName.currentTextColor
+
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No action needed
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // No action needed
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val numericRegex = Regex("[0-9]+")
+
+                if (inputTxtMoistureThreshold.text.toString().matches(numericRegex) || inputTxtMoistureThreshold.text.toString().isBlank()){
+                    inputTxtMoistureThreshold.setTextColor(defaultTextColor)
+                }else{
+                    inputTxtMoistureThreshold.setTextColor(Color.RED)
+                    Toast.makeText(applicationContext, "Please enter a numeric value for Moisture threshold", Toast.LENGTH_SHORT).show()
+                }
+
+                if (inputTxtIntervalMin.text.toString().matches(numericRegex) || inputTxtIntervalMin.text.toString().isBlank()){
+                    inputTxtIntervalMin.setTextColor(defaultTextColor)
+                }else{
+                    inputTxtIntervalMin.setTextColor(Color.RED)
+                    Toast.makeText(applicationContext, "Please enter a numeric value for interval min.", Toast.LENGTH_SHORT).show()
+                }
+
+                if (inputTxtIntervalMax.text.toString().matches(numericRegex) || inputTxtIntervalMax.text.toString().isBlank()){
+                    inputTxtIntervalMax.setTextColor(defaultTextColor)
+                }else{
+                    inputTxtIntervalMax.setTextColor(Color.RED)
+                    Toast.makeText(applicationContext, "Please enter a numeric value for interval max.", Toast.LENGTH_SHORT).show()
+                }
+
+                if (inputTxtWaterAmount.text.toString().matches(numericRegex) || inputTxtWaterAmount.text.toString().isBlank()){
+                    inputTxtWaterAmount.setTextColor(defaultTextColor)
+                }else{
+                    inputTxtWaterAmount.setTextColor(Color.RED)
+                    Toast.makeText(applicationContext, "Please enter a numeric value for interval max.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        inputTxtMoistureThreshold.addTextChangedListener(textWatcher)
+        inputTxtWaterAmount.addTextChangedListener(textWatcher)
+        inputTxtIntervalMin.addTextChangedListener(textWatcher)
+        inputTxtIntervalMax.addTextChangedListener(textWatcher)
+
+
         readDataNameMode(plantRecord.toString())
         readThresholdMoisture(plantRecord.toString())
         readIntervalsWAmount(plantRecord.toString())
@@ -64,12 +117,39 @@ class WateringSettingsActivity : AppCompatActivity() {
 
 
         btnSubmit.setOnClickListener {
+
+            val numericRegex = Regex("[0-9]+")
+
             var name = inputTxtPlantName.text.toString()
             var mode = spinnerMode.selectedItem.toString()
-            var moistureThreshold = inputTxtMoistureThreshold.text.toString().toIntOrNull() ?: 0
-            var intervalMin = inputTxtIntervalMin.text.toString().toIntOrNull() ?: 0
-            var intervalMax = inputTxtIntervalMax.text.toString().toIntOrNull() ?: 0
-            var waterAmount = inputTxtWaterAmount.text.toString().toIntOrNull() ?: 0
+            var moistureThreshold = 0
+            var intervalMin = 0
+            var intervalMax = 0
+            var waterAmount = 0
+
+            if (inputTxtMoistureThreshold.text.toString().matches(numericRegex) || inputTxtMoistureThreshold.text.toString().isBlank()){
+                moistureThreshold = inputTxtMoistureThreshold.text.toString().toIntOrNull() ?: 0
+            }else{
+                inputTxtMoistureThreshold.setTextColor(Color.RED)
+            }
+
+            if (inputTxtIntervalMin.text.toString().matches(numericRegex) || inputTxtIntervalMin.text.toString().isBlank()){
+                intervalMin = inputTxtIntervalMin.text.toString().toIntOrNull() ?: 0
+            }else{
+                inputTxtIntervalMin.setTextColor(Color.RED)
+            }
+
+            if (inputTxtIntervalMax.text.toString().matches(numericRegex) || inputTxtIntervalMax.text.toString().isBlank()){
+                intervalMax = inputTxtIntervalMax.text.toString().toIntOrNull() ?: 0
+            }else{
+                inputTxtIntervalMax.setTextColor(Color.RED)
+            }
+
+            if (inputTxtWaterAmount.text.toString().matches(numericRegex) || inputTxtWaterAmount.text.toString().isBlank()){
+                waterAmount = inputTxtWaterAmount.text.toString().toIntOrNull() ?: 0
+            }else{
+                inputTxtWaterAmount.setTextColor(Color.RED)
+            }
 
 
             db = FirebaseDatabase.getInstance().getReference(("10032311/" + plantRecord).toString())
