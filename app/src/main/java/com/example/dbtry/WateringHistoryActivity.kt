@@ -1,44 +1,48 @@
 package com.example.dbtry
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.graphics.Color
-import android.widget.Toast
-
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.utils.EntryXComparator
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class WateringHistoryActivity : AppCompatActivity() {
 
     private lateinit var lineChart: LineChart
-    private lateinit var db: DatabaseReference
+    private lateinit var db : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_watering_history)
+        setContentView(R.layout.activity_moisture_history)
 
         var plantRecord = intent.getStringExtra("PLANT_NAME")
 
         lineChart = findViewById(R.id.lineChart)
 
-
+        // Get the entries and labels from Firebase
         val entries = mutableListOf<Entry>()
         val labels = mutableListOf<String>()
 
-        createWeightChart(entries, labels)///////////////////////////////////////////
-
+        // Set up Firebase reference
         db = FirebaseDatabase.getInstance().getReference("10032311").child(plantRecord.toString()).child("pump").child("history")
+
+        // Retrieve data from Firebase
         db.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val key = snapshot.key
@@ -55,160 +59,175 @@ class WateringHistoryActivity : AppCompatActivity() {
                 entries.add(entry)
                 labels.add(key.toString())
 
-
-                if (labels.size == entries.size) {
-                    // Update the chart with the new entry
-                    createWeightChart(entries, labels)
-                }
+                // Update the chart with the new entry
+                updateChart(entries, labels)
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                //TODO("Not yet implemented")
+                // Handle data changes if needed
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                //TODO("Not yet implemented")
+                // Handle data removal if needed
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                //TODO("Not yet implemented")
+                // Handle child movement if needed
             }
 
             override fun onCancelled(error: DatabaseError) {
-                //TODO("Not yet implemented")
+                // Handle cancellation if needed
             }
-
         })
     }
 
-    private fun createWeightChart(entries: List<Entry>, labels: List<String>) {
-        if (entries.isEmpty()) {
-            // Obsługa braku danych
-            val chartMessage = "No soil moisture measurements."
-            lineChart.setNoDataText(chartMessage)
-            lineChart.setNoDataTextColor(Color.parseColor("#14471E"))
-            lineChart.invalidate()
-            return
-        }
-
-        // Ustawienia dla linii pomiarów wagi
-        val dataSet = LineDataSet(entries, "Moisture")
-        dataSet.color = Color.parseColor("#8014471E")
-        dataSet.valueTextColor = Color.BLACK
-        dataSet.setDrawValues(false)
+    private fun updateChart(entries: List<Entry>, labels: List<String>) {
+        // Create a LineDataSet with the entries
+        val dataSet = LineDataSet(entries, "Percentage")
+        dataSet.color = ContextCompat.getColor(this@WateringHistoryActivity, R.color.theme_green)
+        dataSet.setDrawFilled(true)
+        dataSet.fillColor = ContextCompat.getColor(this@WateringHistoryActivity, R.color.theme_green)
+        dataSet.fillAlpha = 100
         dataSet.setDrawCircles(true)
-        dataSet.setCircleColors(listOf(Color.parseColor("#8014471E")))
-        dataSet.circleRadius = 3f
-        dataSet.circleHoleColor = Color.parseColor("#8014471E")
-        dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+        dataSet.setCircleColors(listOf(ContextCompat.getColor(this@WateringHistoryActivity, R.color.theme_green)))
+        dataSet.circleRadius = 5f
+        dataSet.circleHoleColor = ContextCompat.getColor(this@WateringHistoryActivity, R.color.theme_green)
+        dataSet.setDrawValues(false)
 
-        // Obliczanie punktów dla linii trendu
-        val trendLineEntries = mutableListOf(
-            Entry(entries.first().x, calculateTrendLineY(entries.first().x, entries)),
-            Entry(entries.last().x, calculateTrendLineY(entries.last().x, entries))
-        )
-        val trendLineDataSet = LineDataSet(trendLineEntries, "Trend")
-        trendLineDataSet.color = Color.parseColor("#338309")
-        trendLineDataSet.setDrawValues(false)
-        trendLineDataSet.setDrawCircles(false)
-        trendLineDataSet.setDrawFilled(false)
-        trendLineDataSet.enableDashedLine(10f, 5f, 0f)
-
-        // Tworzenie danych dla wykresu
+        // Create a LineData object with the LineDataSet
         val lineData = LineData(dataSet)
 
-        // Ustawienie danych dla wykresu
+        // Set the data to the line chart
         lineChart.data = lineData
 
-        // Ustawienia dodatkowe
-        dataSet.setDrawFilled(true)
-        dataSet.fillColor = Color.parseColor("#8014471E")
+        // Customize the chart appearance
+        lineChart.setBackgroundColor(Color.WHITE)
+        lineChart.setDrawGridBackground(true)
+        lineChart.setPinchZoom(true)
 
-        lineChart.invalidate()
+        val ll1 = LimitLine(30f, "Title")
 
-        val xAxis = lineChart.xAxis
-        xAxis.isEnabled = true // Set xAxis visibility to true
+        ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM)
+        ll1.setTextSize(10f)
 
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.isGranularityEnabled = true
-        xAxis.setCenterAxisLabels(true)
-        xAxis.setDrawLabels(true)
-        xAxis.granularity = 1f
-        xAxis.valueFormatter = object : ValueFormatter() {
+        val ll2 = LimitLine(35f, "")
+        ll2.lineWidth = 4f
+        ll2.enableDashedLine(10f, 10f, 0f)
+
+        val xAxisFormatter = object : ValueFormatter() {
             private val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
 
             override fun getFormattedValue(value: Float): String {
-                val index = value.toInt()
-                return if (index >= 0 && index < labels.size) {
-                    val dateTime = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).parse(labels[index])
-                    dateTime?.let {
-                        dateFormatter.format(it)
-                    } ?: ""
-                } else {
-                    ""
-                }
+                // Convert the value from milliseconds to a Date object
+                val date = Date(value.toLong())
+
+                // Format the date using SimpleDateFormat
+                return dateFormatter.format(date)
             }
         }
 
+        val xAxis: XAxis = lineChart.getXAxis()
+        xAxis.valueFormatter = xAxisFormatter
+        val leftAxis: YAxis = lineChart.getAxisLeft()
+        xAxis.labelRotationAngle = -70f
+        val position = XAxisPosition.BOTTOM
+        xAxis.position = position
+        xAxis.granularity = 1f
+        xAxis.textSize = 12f
 
 
-        xAxis.axisMaximum = entries.last().x
-
-        val desiredRecordCount = 1260
-        val minimumValue = if (entries.size > desiredRecordCount) {
-            entries[entries.size - desiredRecordCount].x
-        } else {
-            entries.first().x
-        }
-        xAxis.axisMinimum = minimumValue
-
-//         Obsługa rotacji etykiet osi X w zależności od ilości danych
-        if (labels.size > 7) {
-            xAxis.labelRotationAngle = -90f
-            xAxis.setAvoidFirstLastClipping(false)
-            lineChart.setExtraOffsets(0f, 0f, 0f, 30f)
-        } else {
-            xAxis.labelRotationAngle = 0f
-            xAxis.setAvoidFirstLastClipping(false)
-            lineChart.setExtraOffsets(0f, 0f, 0f, 0f)
-        }
-
-        // Ustawienia dla osi Y
+        // Customize the y-axis
         val yAxis = lineChart.axisLeft
-        yAxis.isGranularityEnabled = true
-        yAxis.setCenterAxisLabels(true)
-        yAxis.setDrawLabels(true)
+        yAxis.setDrawGridLines(true)
+        lineChart.legend.isEnabled = false
+        yAxis.textSize = 12f
+
         yAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
-                return String.format("%.0f %%", value)
+                return String.format("%.0f ml", value)
             }
         }
         yAxis.granularity = 1f
         yAxis.isGranularityEnabled = true
 
+        // Hide the right y-axis
         lineChart.axisRight.isEnabled = false
-        lineChart.legend.isEnabled = false
 
-        // Opis wykresu
+        // Set the description
         val description = Description()
         description.text = ""
         lineChart.description = description
 
-        if (labels.size == entries.size){
-//            Toast.makeText(applicationContext, "Correct", Toast.LENGTH_SHORT).show()
-        }
+        // Enable scrolling
+        lineChart.isDragEnabled = true
+        lineChart.setScaleEnabled(true)
+        lineChart.setTouchEnabled(true)
+
+        // Refresh the chart
+        lineChart.invalidate()
     }
 
-    private fun calculateTrendLineY(x: Float, entries: List<Entry>): Float {
-        val x1 = entries.first().x
-        val y1 = entries.first().y
-        val x2 = entries.last().x
-        val y2 = entries.last().y
+    inner class DateTimeValueFormatter(private val labels: List<String>) : ValueFormatter() {
 
-        // Obliczanie wartości dla linii trendu
-        val m = (y2 - y1) / (x2 - x1)
-        val b = y1 - m * x1
+        private val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
 
-        return m * x + b
+        override fun getFormattedValue(value: Float): String {
+            val index = value.toInt()
+            return if (index >= 0 && index < labels.size) {
+                val dateTime = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                    .parse(labels[index])
+                dateTime?.let {
+                    dateFormatter.format(it)
+                } ?: ""
+            } else {
+                ""
+            }
+        }
+    }
+    class ClaimsXAxisValueFormatter(private val datesList: List<String>) : ValueFormatter() {
+
+        override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+            val position = value.roundToInt()
+            val sdf = SimpleDateFormat("MMM dd", Locale.getDefault())
+
+            return when {
+                value > 1 && value < 2 -> {
+                    val newPosition = 0
+                    if (newPosition < datesList.size)
+                        sdf.format(Date(Utils.getDateInMilliseconds(datesList[newPosition], "yyyy-MM-dd")))
+                    else
+                        ""
+                }
+                value > 2 && value < 3 -> {
+                    val newPosition = 1
+                    if (newPosition < datesList.size)
+                        sdf.format(Date(Utils.getDateInMilliseconds(datesList[newPosition], "yyyy-MM-dd")))
+                    else
+                        ""
+                }
+                value > 3 && value < 4 -> {
+                    val newPosition = 2
+                    if (newPosition < datesList.size)
+                        sdf.format(Date(Utils.getDateInMilliseconds(datesList[newPosition], "yyyy-MM-dd")))
+                    else
+                        ""
+                }
+                value > 4 && value <= 5 -> {
+                    val newPosition = 3
+                    if (newPosition < datesList.size)
+                        sdf.format(Date(Utils.getDateInMilliseconds(datesList[newPosition], "yyyy-MM-dd")))
+                    else
+                        ""
+                }
+                else -> ""
+            }
+        }
+    }
+    object Utils {
+        fun getDateInMilliseconds(dateString: String, pattern: String): Long {
+            val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+            val date = sdf.parse(dateString)
+            return date?.time ?: 0L
+        }
     }
 }
