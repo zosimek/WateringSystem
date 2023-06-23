@@ -186,13 +186,20 @@
         </Spinner>
 
         <TextView
-            android:layout_width="45dp"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-black"
             android:paddingLeft="10dp"
             android:text=""
             android:textSize="22sp" />
+
+        <ImageView
+            android:id="@+id/imgInfo"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/mode_info" />
 
     </LinearLayout>
 

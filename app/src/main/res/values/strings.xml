@@ -17,7 +17,7 @@
     <string name="previous">Previous</string>
 
     <!--    Srtings used in the activity_plant_main.xml-->
-    <string name="watering">WATERING</string>
+    <string name="watering">WATERING SETTINGS</string>
     <string name="watering_history">WATERING HISTORY</string>
     <string name="moisture_history">MOISTURE HISTORY</string>
     <string name="moisture_level">MOISTURE LEVEL</string>
@@ -34,6 +34,13 @@
     <string name="min">Min.:</string>
     <string name="water_amount">Water amount:</string>
     <string name="moisture_threshold">Moisture threshold:</string>
+
+    <string name="manualTitle">Manual</string>
+    <string name="manualContent">It enables you to water the plant on button click.\n The only value you need to provide is water amount.</string>
+    <string name="timerTitle">Timer</string>
+    <string name="timerContent">This mode will water your plant every period of time in the middle of min and max interval.</string>
+    <string name="autoTitle">Auto</string>
+    <string name="autoContent">It is fully automated mode.\n I will water the plant whenever the moisture level drops below set moisture threshold, but not less frequently than max interval, and not more frequently than min interval.</string>
 
     <!--    Strings for the spinner in WateringSettings-->
     <string-array name="watering_mode">
