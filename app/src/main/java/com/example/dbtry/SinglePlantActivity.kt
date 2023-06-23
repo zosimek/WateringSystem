@@ -18,9 +18,9 @@ class SinglePlantActivity : AppCompatActivity() {
     private lateinit var moistureLevel: ProgressBar
     private lateinit var moistureText: TextView
 
-    private lateinit var btnWateringSettings: Button
-    private lateinit var btnWateringHistory: Button
-    private lateinit var btnMoistureHistory: Button
+    private lateinit var btnWateringSettings: ImageView
+    private lateinit var btnWateringHistory: ImageView
+    private lateinit var btnMoistureHistory: ImageView
 
     private lateinit var imagePlant: ImageView
     private var imageNumber: Int? = null
@@ -50,7 +50,7 @@ class SinglePlantActivity : AppCompatActivity() {
 
 
 
-        btnWateringSettings = findViewById<Button>(R.id.btnWateringSettings)
+        btnWateringSettings = findViewById<ImageView>(R.id.btnWateringSettings)
         btnWateringSettings.setOnClickListener {
             var plantRecord = "plant" + plantNumber
             val intent =
@@ -61,7 +61,7 @@ class SinglePlantActivity : AppCompatActivity() {
         }
 
 
-        btnWateringHistory = findViewById<Button>(R.id.btnWateringHistory)
+        btnWateringHistory = findViewById<ImageView>(R.id.btnWateringHistory)
         btnWateringHistory.setOnClickListener {
             var plantRecord = "plant" + plantNumber
             val intent =
@@ -72,7 +72,7 @@ class SinglePlantActivity : AppCompatActivity() {
         }
 
 
-        btnMoistureHistory = findViewById<Button>(R.id.btnMoistureHistory)
+        btnMoistureHistory = findViewById<ImageView>(R.id.btnMoistureHistory)
         btnMoistureHistory.setOnClickListener {
             var plantRecord = "plant" + plantNumber
             val intent =

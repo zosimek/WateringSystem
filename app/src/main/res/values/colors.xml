@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="theme_green">#5EBA46</color>
     <color name="light_gray">#dddddd</color>
+    <color name="gray">#666666</color>
     <color name="mid_gray">#999999</color>
     <color name="watering_circle">#48CFE6</color>
     <color name="light_gray_circle">#dddddd</color>

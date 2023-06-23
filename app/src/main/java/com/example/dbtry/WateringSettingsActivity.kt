@@ -1,5 +1,6 @@
 package com.example.dbtry
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -26,6 +27,7 @@ class WateringSettingsActivity : AppCompatActivity() {
     private lateinit var inputTxtIntervalMin: TextInputEditText
     private lateinit var inputTxtIntervalMax: TextInputEditText
     private lateinit var btnSubmit : Button
+    private lateinit var imgInfo : ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +43,15 @@ class WateringSettingsActivity : AppCompatActivity() {
         inputTxtIntervalMin = findViewById<TextInputEditText>(R.id.txtMinInterval)
         inputTxtIntervalMax = findViewById<TextInputEditText>(R.id.txtMaxInterval)
         btnSubmit = findViewById<Button>(R.id.btnCommitSettings)
+        imgInfo = findViewById<ImageView>(R.id.imgInfo)
+
+        imgInfo.setOnClickListener {
+            val intent =
+                Intent(this@WateringSettingsActivity, ModeInfoActivity::class.java).also {
+                    it
+                }
+            startActivity(intent)
+        }
 
         val defaultTextColor = inputTxtPlantName.currentTextColor
 

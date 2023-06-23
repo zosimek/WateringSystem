@@ -40,7 +40,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/imagePlant"
             app:layout_constraintVertical_bias="0.333" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -91,15 +91,16 @@
                 android:layout_marginTop="0dp"
                 android:background="@xml/plant_btn_options">
 
-                <Button
+                <ImageView
                     android:id="@+id/btnWateringSettings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="Button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@drawable/btn_watering_settings"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -140,15 +141,16 @@
                 android:layout_marginTop="0dp"
                 android:background="@xml/plant_btn_options">
 
-                <Button
+                <ImageView
                     android:id="@+id/btnWateringHistory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="Button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@drawable/btn_watering_history"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -189,16 +191,16 @@
                 android:layout_marginTop="0dp"
                 android:background="@xml/plant_btn_options">
 
-                <Button
+                <ImageView
                     android:id="@+id/btnMoistureHistory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="Button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.512"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@drawable/btn_moisture_history" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
