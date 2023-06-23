@@ -40,6 +40,7 @@ class PlantActivity: AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 if (snapshot.exists()){
+                    plantArrayList.clear()
                     for (plantSnapshot in snapshot.children){
                         val plant = plantSnapshot.getValue(Plant::class.java)
                         plantArrayList.add(plant!!)
