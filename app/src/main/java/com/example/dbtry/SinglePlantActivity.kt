@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -25,6 +22,9 @@ class SinglePlantActivity : AppCompatActivity() {
     private lateinit var btnWateringHistory: Button
     private lateinit var btnMoistureHistory: Button
 
+    private lateinit var imagePlant: ImageView
+    private var imageNumber: Int? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +36,17 @@ class SinglePlantActivity : AppCompatActivity() {
         plantName = findViewById<TextView>(R.id.txtPlantName)
         moistureText = findViewById<TextView>(R.id.txtMoisture)
         moistureLevel = findViewById<ProgressBar>(R.id.progressMoisture)
+
+
+        imagePlant = findViewById<ImageView>(R.id.imagePlant)
+        imagePlant.setOnClickListener {
+            var plantRecord = "plant" + plantNumber
+            val intent =
+                Intent(this@SinglePlantActivity, ChooseImageActivity::class.java).also {
+                    it.putExtra("PLANT_NAME", plantRecord)
+                }
+            startActivity(intent)
+        }
 
 
 
@@ -72,6 +83,7 @@ class SinglePlantActivity : AppCompatActivity() {
         }
 
         readData(plantNumber.toString())
+        readImageNumber(plantNumber.toString())
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //  updating the donut char each secund with the new upcoming moisture level
@@ -81,8 +93,9 @@ class SinglePlantActivity : AppCompatActivity() {
 
         val task = object : TimerTask() {
             override fun run() {
-                runOnUiThread{
+                runOnUiThread {
                     readMoistureLevel(plantNumber.toString())
+                    readImageNumber(plantNumber.toString())
                 }
             }
         }
@@ -93,7 +106,6 @@ class SinglePlantActivity : AppCompatActivity() {
         timer.scheduleAtFixedRate(task, delay, period)
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
     private fun readData(plantNumber: String) {
@@ -119,20 +131,60 @@ class SinglePlantActivity : AppCompatActivity() {
         }
     }
 
-    private fun readMoistureLevel(plantNumber: String){
+    private fun readMoistureLevel(plantNumber: String) {
 
         db = FirebaseDatabase.getInstance().getReference("10032311")
 
         var sensorRecord = "plant" + plantNumber + "/sensor"
         db.child(sensorRecord).get().addOnSuccessListener {
 
-            if(it.exists()){
+            if (it.exists()) {
 
                 val currentMoistureLevel = it.child("currentMoistureLevel").value
 
 //                Toast.makeText(this, "${currentMoistureLevel}", Toast.LENGTH_SHORT).show()
                 moistureText.text = currentMoistureLevel.toString()
                 moistureLevel.progress = Integer.parseInt(currentMoistureLevel.toString())
+            }
+        }
+    }
+
+    private fun readImageNumber(plantNumber: String) {
+
+        db = FirebaseDatabase.getInstance().getReference("10032311")
+
+        var sensorRecord = "plant" + plantNumber
+        db.child(sensorRecord).get().addOnSuccessListener {
+
+            if (it.exists()) {
+
+                imageNumber = it.child("image").value.toString()?.toInt()
+                when (imageNumber) {
+                    1 -> {
+                        imagePlant.setImageResource(R.drawable.plant_benjaminek)
+                    }
+                    2 -> {
+                        imagePlant.setImageResource(R.drawable.plant_bonsai)
+                    }
+                    3 -> {
+                        imagePlant.setImageResource(R.drawable.plant_kaktus)
+                    }
+                    4 -> {
+                        imagePlant.setImageResource(R.drawable.plant_kwiatek)
+                    }
+                    5 -> {
+                        imagePlant.setImageResource(R.drawable.plant_monstera)
+                    }
+                    6 -> {
+                        imagePlant.setImageResource(R.drawable.plant_sokulent)
+                    }
+                    7 -> {
+                        imagePlant.setImageResource(R.drawable.plant_storczyk)
+                    }
+                    else -> {
+                        imagePlant.setImageResource(R.drawable.plant_benjaminek)
+                    }
+                }
             }
         }
     }
